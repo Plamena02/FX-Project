@@ -24,7 +24,6 @@ if (-not(Test-Path -Path $file -PathType Leaf)) {
     #$lines = Get-Content -Path $file1
     # foreach($line in Get-Content $file1) {
     #     if($line -match $regex){
-    #         # Work here
     #         $line >> $file
     #     }
     # }
