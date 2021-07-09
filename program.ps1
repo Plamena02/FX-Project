@@ -1,13 +1,13 @@
 
-$file1 = "C:\Users\User\Desktop\FX Project\forex_pairs.csv"
-$file = "C:\Users\User\Desktop\FX Project\output.csv"
+$key_file = "C:\Users\User\Desktop\FX Project\forex_pairs.csv"
+$output_file = "C:\Users\User\Desktop\FX Project\output.csv"
 $path = "C:\Users\User\Desktop\FX Project"
 
 #If the file does not exist, create it.
-if (-not(Test-Path -Path $file -PathType Leaf)) {
+if (-not(Test-Path -Path $output_file -PathType Leaf)) {
      try {
          $null = New-Item -ItemType File -Path $file -Force -ErrorAction Stop
-         Write-Host "The file [$file] has been created."
+         Write-Host "The file [$output_file] has been created."
      }
      catch {
          throw $_.Exception.Message
@@ -16,13 +16,18 @@ if (-not(Test-Path -Path $file -PathType Leaf)) {
     # If the file already exists, show the message and clear the old file.
     else {
         Clear-Content "C:\Users\User\Desktop\FX Project\output.csv"
-        Write-Host "Cannot create [$file] because a file with that name already exists."
+        Write-Host "Cannot create [$output_file] because a file with that name already exists."
     }
 
-    $lines = Get-Content -Path $file1  
-    $period1 = 
-    $period2 = 
-    
+    $lines = Get-Content -Path $key_file  
+    [datetime]$date = (Get-Date).AddDays(-5)
+    $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
+    $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
+    # Write-Host $period1
+    # Write-Host $period2
+
+     New-Item -Path 'C:\Users\User\Desktop\FX Project\Data' -ItemType Directory
+
     foreach($line in $lines) 
     {
         $arr = $line.Split(",")
@@ -36,18 +41,17 @@ if (-not(Test-Path -Path $file -PathType Leaf)) {
             {
                 $currency = $arr[0]+ $arr[1] + "=X"
             }
-            Add-Content -Path $file -Value $currency
+                  
+            Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}
+            &period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\$currency.csv    
         }
     }
-
-    #New-Item -Path 'C:\Users\User\Desktop\FX Project\Data' -ItemType Directory
-    #Remove-Item 'C:\Users\User\Desktop\FX Project\Data'
-
-    # $params = @{
-    #     'export' = '1'
-    #     'enc'    = 'UTF-8'
-    #     'xf'     = 'cs'
-    # }
     
-    # Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/ZAC=X?period1=1625184000&period2=1625616000&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\report.csv    
-    # Invoke-WebRequest -Uri ""
+    # Remove-Item 'C:\Users\User\Desktop\FX Project\Data'
+
+    #Add-Content -Path $file -Value $currency
+    #         $params = @{
+    #                 'export' = '1'
+    #                 'enc'    = 'UTF-8'
+    #                 'xf'     = 'cs'
+    #             }
