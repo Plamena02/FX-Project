@@ -1,7 +1,6 @@
 
 $key_file = "C:\Users\User\Desktop\FX Project\forex_pairs.csv"
 $output_file = "C:\Users\User\Desktop\FX Project\output.csv"
-$path = "C:\Users\User\Desktop\FX Project"
 
 #If the file does not exist, create it.
 if (-not(Test-Path -Path $output_file -PathType Leaf)) {
@@ -19,14 +18,17 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
         Write-Host "Cannot create [$output_file] because a file with that name already exists."
     }
 
+    #Read input currency document 
     $lines = Get-Content -Path $key_file  
-    [datetime]$date = (Get-Date).AddDays(-5)
-    $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
-    $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
-    # Write-Host $period1
-    # Write-Host $period2
 
-     New-Item -Path 'C:\Users\User\Desktop\FX Project\Data' -ItemType Directory
+    #Start and End date (5 days)
+    [datetime]$date = (Get-Date).AddDays(-5)
+    $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
+    $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
+
+    #Create new folder for download files
+    New-Item -Path 'C:\Users\User\Desktop\FX Project\Data' -ItemType Directory
+    $path = "C:\Users\User\Desktop\FX Project\Data"
 
     foreach($line in $lines) 
     {
@@ -41,17 +43,22 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
             {
                 $currency = $arr[0]+ $arr[1] + "=X"
             }
-                  
-            Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}
-            &period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\$currency.csv    
+            
+            $index = $arr[2]
+            $params = @{
+                    'export' = '1'
+                    'enc'    = 'UTF-8'
+                    'xf'     = 'cs'
+            }
+
+            try {
+                Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\$index.csv 
+            }
+            catch {
+               Write-Host "The currency $currency was not found."
+            }
         }
     }
     
     # Remove-Item 'C:\Users\User\Desktop\FX Project\Data'
-
     #Add-Content -Path $file -Value $currency
-    #         $params = @{
-    #                 'export' = '1'
-    #                 'enc'    = 'UTF-8'
-    #                 'xf'     = 'cs'
-    #             }
