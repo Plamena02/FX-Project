@@ -26,10 +26,12 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
     $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
     $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
 
-    #Create new folder for download files
+    #Create new folder for download files (Data)
     New-Item -Path 'C:\Users\User\Desktop\FX Project\Data' -ItemType Directory
     $path = "C:\Users\User\Desktop\FX Project\Data"
-
+    
+    #Download a document for each currency found
+    #If the currency doesn't exist, show the message
     foreach($line in $lines) 
     {
         $arr = $line.Split(",")
@@ -44,7 +46,7 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
                 $currency = $arr[0]+ $arr[1] + "=X"
             }
             
-            $index = $arr[2]
+            $file_name = "$($arr[0])$($arr[1])-$($arr[2])"
             $params = @{
                     'export' = '1'
                     'enc'    = 'UTF-8'
@@ -52,7 +54,7 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
             }
 
             try {
-                Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\$index.csv 
+                Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $path\$file_name.csv 
             }
             catch {
                Write-Host "The currency $currency was not found."
@@ -60,5 +62,31 @@ if (-not(Test-Path -Path $output_file -PathType Leaf)) {
         }
     }
     
-    # Remove-Item 'C:\Users\User\Desktop\FX Project\Data'
-    #Add-Content -Path $file -Value $currency
+    #Get download files from Data foder
+    $list = Get-ChildItem -Path $path -Recurse | `
+    Where-Object { $_.PSIsContainer -eq $false -and $_.Extension -ne '.srt' }
+
+    #Add description line in output document 
+    $first_line = "forex_id,symbol,date,rate"
+    Add-Content -Path $output_file -Value $first_line
+
+    #Read and convert the information 
+    #Add lines in output document 
+    foreach($file1 in $list){
+        $arr = $file1.Name.Split("-")
+        $currency = $arr[0]
+        $forex_id = $arr[1]
+        $lines = Get-Content -Path $path/$file1 | Select-Object -Skip 1 
+
+        foreach ($line in $lines) {
+            $arr1 = $line.Split(",")
+            $date = $arr1[0]
+            $rate = $arr1[4]
+            $output_line = "$currency,$forex_id,$date,$rate"
+            Add-Content -Path $output_file -Value $output_line
+        }
+       }
+
+    #Remove Data folder
+    Remove-Item -LiteralPath $path -Force -Recurse
+ 
