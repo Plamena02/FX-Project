@@ -24,9 +24,6 @@ else {
     Write-Host "Cannot create [$output_file] because a file with that name already exists."
 }
 
-#Read input currency document 
-$lines = Get-Content -Path $key_file | Select-Object -Skip 1 
-
 #Start and End date (5 days)
 [datetime]$date = (Get-Date).AddDays(-5)
 $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
@@ -38,9 +35,11 @@ $data_path = "$Path\Data"
 
 #Download a document for each currency found
 #If the currency doesn't exist, show the message
-foreach($line in $lines) 
+$lines = Get-Content -Path $key_file | Select-Object -Skip 1
+#Measure-Command
+{while($lines.Count -ne 0) 
 {
-    $arr = $line.Split(",")
+    $arr = $lines[0].Split(",")
     if($arr[0] -eq "USD")
     {        
         $currency = $arr[1] + "=X"
@@ -62,8 +61,15 @@ foreach($line in $lines)
     }
     catch {
         Write-Host "The currency $currency was not found."
-    }       
-}
+    }
+
+    if($lines.Count -le 1) {
+        $lines = @()
+    }
+    else {
+        $lines = $lines[1..($lines.length - 1)]
+    }
+}}
     
 #Get download files from Data foder
 $list = Get-ChildItem -Path $data_path -Recurse | `
