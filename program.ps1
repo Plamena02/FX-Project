@@ -36,8 +36,7 @@ $data_path = "$Path\Data"
 #Download a document for each currency found
 #If the currency doesn't exist, show the message
 $lines = Get-Content -Path $key_file | Select-Object -Skip 1
-#Measure-Command
-{while($lines.Count -ne 0) 
+while($lines.length -ne 0) 
 {
     $arr = $lines[0].Split(",")
     if($arr[0] -eq "USD")
@@ -63,13 +62,13 @@ $lines = Get-Content -Path $key_file | Select-Object -Skip 1
         Write-Host "The currency $currency was not found."
     }
 
-    if($lines.Count -le 1) {
+    if($lines.length -le 1) {
         $lines = @()
     }
     else {
         $lines = $lines[1..($lines.length - 1)]
     }
-}}
+}
     
 #Get download files from Data foder
 $list = Get-ChildItem -Path $data_path -Recurse | `
