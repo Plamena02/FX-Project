@@ -36,9 +36,10 @@ $data_path = "$Path\Data"
 #Download a document for each currency found
 #If the currency doesn't exist, show the message
 $lines = Get-Content -Path $key_file | Select-Object -Skip 1
-while($lines.length -ne 0) 
+$copy = $lines
+while($copy.length -ne 0) 
 {
-    $arr = $lines[0].Split(",")
+    $arr = $copy[0].Split(",")
     if($arr[0] -eq "USD")
     {        
         $currency = $arr[1] + "=X"
@@ -62,11 +63,11 @@ while($lines.length -ne 0)
         Write-Host "The currency $currency was not found."
     }
 
-    if($lines.length -le 1) {
-        $lines = @()
+    if($copy.length -le 1) {
+        $copy = @()
     }
     else {
-        $lines = $lines[1..($lines.length - 1)]
+        $copy = $copy[1..($copy.length - 1)]
     }
 }
     
@@ -84,14 +85,22 @@ foreach($file in $list){
     $arr = $file.Basename.Split("-")
     $currency = $arr[0]
     $forex_id = $arr[1]
-    $lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
 
-    foreach ($line in $lines) {
-        $arr1 = $line.Split(",")
+    while($lines.length -ne 0){
+
+        $arr1 = $lines[0].Split(",")
         $date1 = $arr1[0]
         $rate = $arr1[4]
         $output_line = "$forex_id,$currency,$date1,$rate"
         Add-Content -Path $output_file -Value $output_line
+
+        if($lines.length -le 1) {
+            $lines = @()
+        }
+        else {
+            $lines = $lines[1..($lines.length - 1)]
+        }
+
     }
 }
 
