@@ -79,7 +79,7 @@ while($copy.length -ne 0)
     }
 }
     
-#Get download files from Data foder
+#Get download files from Data folder
 $list = Get-ChildItem -Path $data_path -Recurse | `
 Where-Object { $_.PSIsContainer -eq $false -and $_.Extension -ne '.srt' }
 
@@ -93,7 +93,7 @@ foreach($file in $list){
     $arr = $file.Basename.Split("-")
     $currency = $arr[0]
     $forex_id = $arr[1]
-    $lines1 = Get-Content -Path $file | Select-Object -Skip 1
+    $lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
     while($lines.length -ne 0){
 
         $arr1 = $lines1[0].Split(",")
@@ -102,11 +102,11 @@ foreach($file in $list){
         $output_line = "$forex_id,$currency,$date1,$rate"
         Add-Content -Path $output_file -Value $output_line
 
-        if($lines1.length -le 1) {
-            $lines1 = @()
+        if($lines.length -le 1) {
+            $lines = @()
         }
         else {
-            $lines1 = $lines1[1..($lines1.length - 1)]
+            $lines = $lines[1..($lines.length - 1)]
         }
 
     }
