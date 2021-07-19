@@ -8,7 +8,13 @@ $key_file = Read-Host "Please enter directory of Forex Pairs document"
 $Path = Get-ScriptDirectory
 $output_file = "$Path\output.csv"
 
-#If the file does not exist, create it.
+#If the input file directory does not exist, 
+if (-not(Test-Path -Path $key_file -PathType Leaf)) {
+    Write-Host "Forex Pairs document directory does not exist."
+    break
+}
+
+#If the outout file does not exist, create it.
 if (-not(Test-Path -Path $output_file -PathType Leaf)) {
     try {
         $null = New-Item -ItemType File -Path $output_file -Force -ErrorAction Stop
@@ -56,6 +62,8 @@ while($copy.length -ne 0)
             'xf'     = 'cs'
     }
 
+    # The web request works only on the first start of the program after reboot.
+    # After that it makes a mess.
     try {
         Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $data_path\$file_name.csv 
     }
@@ -85,20 +93,20 @@ foreach($file in $list){
     $arr = $file.Basename.Split("-")
     $currency = $arr[0]
     $forex_id = $arr[1]
-
+    $lines1 = Get-Content -Path $file | Select-Object -Skip 1
     while($lines.length -ne 0){
 
-        $arr1 = $lines[0].Split(",")
+        $arr1 = $lines1[0].Split(",")
         $date1 = $arr1[0]
         $rate = $arr1[4]
         $output_line = "$forex_id,$currency,$date1,$rate"
         Add-Content -Path $output_file -Value $output_line
 
-        if($lines.length -le 1) {
-            $lines = @()
+        if($lines1.length -le 1) {
+            $lines1 = @()
         }
         else {
-            $lines = $lines[1..($lines.length - 1)]
+            $lines1 = $lines1[1..($lines1.length - 1)]
         }
 
     }
