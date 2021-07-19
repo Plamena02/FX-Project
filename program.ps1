@@ -96,7 +96,7 @@ foreach($file in $list){
     $lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
     while($lines.length -ne 0){
 
-        $arr1 = $lines1[0].Split(",")
+        $arr1 = $lines[0].Split(",")
         $date1 = $arr1[0]
         $rate = $arr1[4]
         $output_line = "$forex_id,$currency,$date1,$rate"
