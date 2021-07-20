@@ -41,7 +41,7 @@ $data_path = "$Path\Data"
 
 #Download a document for each currency found
 #If the currency doesn't exist, show the message
-$lines = Get-Content -Path $key_file | Select-Object -Skip 1
+[string[]]$lines = Get-Content -Path $key_file | Select-Object -Skip 1
 $copy = $lines
 while($copy.length -ne 0) 
 {
@@ -65,7 +65,7 @@ while($copy.length -ne 0)
     # The web request works only on the first start of the program after reboot.
     # After that it makes a mess.
     try {
-        Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $data_path\$file_name.csv 
+        $null = Invoke-WebRequest -Uri "https://query1.finance.yahoo.com/v7/finance/download/${currency}?period1=${period1}&period2=${period2}&interval=1d&events=history&includeAdjustedClose=true" -Body $params -OutFile $data_path\$file_name.csv 
     }
     catch {
         Write-Host "The currency $currency was not found."
@@ -75,6 +75,7 @@ while($copy.length -ne 0)
         $copy = @()
     }
     else {
+
         $copy = $copy[1..($copy.length - 1)]
     }
 }
@@ -95,7 +96,7 @@ foreach($file in $list){
     $forex_id = $arr[1]
     $lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
     while($lines.length -ne 0){
-
+        
         $arr1 = $lines[0].Split(",")
         $date1 = $arr1[0]
         $rate = $arr1[4]
@@ -108,7 +109,6 @@ foreach($file in $list){
         else {
             $lines = $lines[1..($lines.length - 1)]
         }
-
     }
 }
 
