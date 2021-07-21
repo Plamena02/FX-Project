@@ -1,11 +1,7 @@
-function Get-ScriptDirectory
-{
-  $Invocation = (Get-Variable MyInvocation -Scope 1).Value
-  Split-Path $Invocation.MyCommand.Path
-}
- 
+function Main() {
+
 $key_file = Read-Host "Please enter directory of Forex Pairs document"
-$Path = Get-ScriptDirectory
+$Path = $PSScriptRoot
 $output_file = "$Path\output.csv"
 
 #If the input file directory does not exist, 
@@ -42,10 +38,9 @@ $data_path = "$Path\Data"
 #Download a document for each currency found
 #If the currency doesn't exist, show the message
 [string[]]$lines = Get-Content -Path $key_file | Select-Object -Skip 1
-$copy = $lines
-while($copy.length -ne 0) 
+while($lines.length -ne 0) 
 {
-    $arr = $copy[0].Split(",")
+    $arr = $lines[0].Split(",")
     if($arr[0] -eq "USD")
     {        
         $currency = $arr[1] + "=X"
@@ -71,12 +66,12 @@ while($copy.length -ne 0)
         Write-Host "The currency $currency was not found."
     }
 
-    if($copy.length -le 1) {
-        $copy = @()
+    if($lines.length -le 1) {
+        $lines = @()
     }
     else {
 
-        $copy = $copy[1..($copy.length - 1)]
+        $lines = $lines[1..($lines.length - 1)]
     }
 }
     
@@ -114,3 +109,8 @@ foreach($file in $list){
 
 #Remove Data folder
 Remove-Item -LiteralPath $data_path -Force -Recurse
+
+    exit 0
+}
+
+Main
