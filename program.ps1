@@ -1,42 +1,45 @@
-function Main() {
 
-$key_file = Read-Host "Please enter directory of Forex Pairs document"
-$Path = $PSScriptRoot
-$output_file = "$Path\output.csv"
-
-#If the input file directory does not exist, 
-if (-not(Test-Path -Path $key_file -PathType Leaf)) {
-    Write-Host "Forex Pairs document directory does not exist."
-    break
+# If the input file directory does not exist
+function InputCheck {
+    param (
+        $key_file
+    )
+    if (-not(Test-Path -Path $key_file -PathType Leaf)) {
+        Write-Host "Forex Pairs document directory does not exist."
+        break
+    }
 }
 
-#If the outout file does not exist, create it.
-if (-not(Test-Path -Path $output_file -PathType Leaf)) {
-    try {
-        $null = New-Item -ItemType File -Path $output_file -Force -ErrorAction Stop
-        Write-Host "The file [$output_file] has been created."
-        }
-    catch {
-        throw $_.Exception.Message
-        }
-}
+# If the output file does not exist, create it.
 # If the file already exists, show the message and clear the old file.
-else {
-    Clear-Content $output_file
-    Write-Host "Cannot create [$output_file] because a file with that name already exists."
+function OutputCheck {
+    param (
+        $output_file
+    )
+    if (-not(Test-Path -Path $output_file -PathType Leaf)) {
+        try {
+            $null = New-Item -ItemType File -Path $output_file -Force -ErrorAction Stop
+            Write-Host "The file [$output_file] has been created."
+        }
+        catch {
+            throw $_.Exception.Message
+        }
+    }
+    else {
+        Clear-Content $output_file
+        Write-Host "Cannot create [$output_file] because a file with that name already exists."
+    }
 }
+
+#Download a document for each currency found
+#If the currency doesn't exist, show the message
+function DownloadData{
 
 #Start and End date (5 days)
 [datetime]$date = (Get-Date).AddDays(-5)
 $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
 $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
 
-#Create new folder for download files (Data)
-New-Item -Path "$Path\Data" -ItemType Directory | Out-Null
-$data_path = "$Path\Data"
-
-#Download a document for each currency found
-#If the currency doesn't exist, show the message
 [string[]]$lines = Get-Content -Path $key_file | Select-Object -Skip 1
 while($lines.length -ne 0) 
 {
@@ -49,14 +52,14 @@ while($lines.length -ne 0)
     {
         $currency = $arr[0]+ $arr[1] + "=X"
     }
-            
+    
     $file_name = "$($arr[0])$($arr[1])-$($arr[2])"
     $params = @{
-            'export' = '1'
-            'enc'    = 'UTF-8'
-            'xf'     = 'cs'
+        'export' = '1'
+        'enc'    = 'UTF-8'
+        'xf'     = 'cs'
     }
-
+    
     # The web request works only on the first start of the program after reboot.
     # After that it makes a mess.
     try {
@@ -65,16 +68,18 @@ while($lines.length -ne 0)
     catch {
         Write-Host "The currency $currency was not found."
     }
-
+    
     if($lines.length -le 1) {
         $lines = @()
     }
     else {
-
+        
         $lines = $lines[1..($lines.length - 1)]
     }
-}
-    
+}}
+
+function MakeOutputFile {
+
 #Get download files from Data folder
 $list = Get-ChildItem -Path $data_path -Recurse | `
 Where-Object { $_.PSIsContainer -eq $false -and $_.Extension -ne '.srt' }
@@ -89,7 +94,7 @@ foreach($file in $list){
     $arr = $file.Basename.Split("-")
     $currency = $arr[0]
     $forex_id = $arr[1]
-    $lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
+    [string[]]$lines = Get-Content -Path $data_path\$file | Select-Object -Skip 1 
     while($lines.length -ne 0){
         
         $arr1 = $lines[0].Split(",")
@@ -97,7 +102,7 @@ foreach($file in $list){
         $rate = $arr1[4]
         $output_line = "$forex_id,$currency,$date1,$rate"
         Add-Content -Path $output_file -Value $output_line
-
+        
         if($lines.length -le 1) {
             $lines = @()
         }
@@ -105,12 +110,28 @@ foreach($file in $list){
             $lines = $lines[1..($lines.length - 1)]
         }
     }
-}
+}}
+
+function Main(){
+
+$key_file = $args[0]
+$Path = $PSScriptRoot
+$output_file = "$Path\output.csv"
+
+InputCheck $key_file 
+OutputCheck $output_file 
+
+#Create new folder for download files (Data)
+New-Item -Path "$Path\Data" -ItemType Directory | Out-Null
+$data_path = "$Path\Data"
+
+DownloadData $Path $key_file $data_path
+MakeOutputFile $data_path $output_file
 
 #Remove Data folder
 Remove-Item -LiteralPath $data_path -Force -Recurse
 
-    exit 0
+exit 0
 }
 
-Main
+Main $args
