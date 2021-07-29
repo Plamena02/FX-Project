@@ -3,5 +3,5 @@ from django.http import HttpResponse
 import sqlite3
 
 # Create your views here.
-def main(request):
-    return HttpResponse("Hello")
+def home (request):
+   return render(request,'api/index.html') 
