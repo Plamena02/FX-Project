@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +10,9 @@
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-          <link rel="stylesheet" type="text/css" href="../css/flag-icon.css">
-          <link rel="stylesheet" type="text/css" href="../css/flag-icon.min.css">
-</head>
+          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/docs.css'%}">
+          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/flag-icon.css'%}">
+        </head>
 <body>   
           <div>
                     <h1> Popular Cross Rates </h1>
@@ -25,7 +26,7 @@
                                 </tr>
                                 <tr>
                                   <th scope="col"></th>
-                                  <td> <a target="_self" title="U.S. Dollar" href="/forex/all-forex-markets/U.S._Dollar/USD"> <span class="flag-icon flag-icon-gr"></span> USD </a> </td>
+                                  <td><a target="_self" title="U.S. Dollar"><span class="flag-icon flag-icon-us"></span> USD </a></td>
                                   <th scope="col">Last</th>
                                   <th scope="col">Handle</th>
                                   <th scope="col">Handle</th>
