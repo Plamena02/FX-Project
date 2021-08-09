@@ -6,3 +6,6 @@ import sqlite3
 def home (request):
    return render(request,'api/index.html') 
 
+def chart (request):
+   return render(request,'api/chart_page.html') 
+

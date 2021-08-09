@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,95 +13,110 @@
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
           <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/docs.css'%}">
           <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/flag-icon.css'%}">
-        </head>
+          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/index.css'%}">
+</head>
 <body>   
-          <div>
-                    <h1> Popular Cross Rates </h1>
-                    <span>Thu, Jul 30th, 2021</span>      
+          <div class="contain">
+                    <h1 class="block"> Popular Cross Rates </h1> 
+                    <span id="datetime" class="block"></span>
+
+                    <script>
+                      var dt = new Date();
+                      var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+                      document.getElementById("datetime").innerHTML=dt.toLocaleString("en-US", options);
+                    </script>    
           </div>
+          
           <div>
                     <table class="table table-striped table-bordered"> 
                               <thead>
                                 <tr>
                                   <th colspan="8" ><h4>Major Crossrates</h4></th>
                                 </tr>
-                                <tr>
-                                  <th scope="col"></th>
-                                  <td><a target="_self" title="U.S. Dollar"><span class="flag-icon flag-icon-us"></span> USD </a></td>
-                                  <th scope="col">Last</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">Handle</th>
-                                </tr>
+                                <tr> 
+                                  <td></td>  
+                                  <td class="left_text"> <a target="_self" title="U.S. Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-us"></span> USD </a> </td> 
+                                  <td class="left_text"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>  
+                                  <td class="left_text"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
+                                  <td class="left_text"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
+                                  <td class="left_text"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
+                                  <td class="left_text"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
+                                  <td class="left_text"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>  </tr>
                               </thead>
                               <tbody>
                                 <tr>
-                                  <th scope="row">1</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row" ><a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" > <span class="flag-icon flag-icon-us"></span> USD </a> </td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">2</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>  
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">3</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                                <tr>
-                                  <th scope="row">3</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">3</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                                 <tr>
-                                  <th scope="row">3</th>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
-                                  <td>#</td>
+                                  <td scope="row"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                </tr>
+                                <tr>
+                                  <td scope="row"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
                                 </tr>
                               </tbody>
                             </table>
                     </div>      
 </body>
 </html>
-
-
 <!-- font-family: Noto Sans,sans-serif; -->

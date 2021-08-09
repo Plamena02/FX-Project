@@ -2,6 +2,16 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import pandas as pd
+import sqlite3
+
+def get_data():
+    currency = pd.read_csv("../output.csv")
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
+    currency.to_sql('api_currency', conn, if_exists='append', index = False)
+    conn.commit()
+    conn.close()
 
 
 def main():
@@ -19,4 +29,5 @@ def main():
 
 
 if __name__ == '__main__':
+    get_data()
     main()
