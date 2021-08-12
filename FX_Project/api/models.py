@@ -2,16 +2,22 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 # Create your models here.
-class Currency (models.Model): 
-    forex_id = models.CharField(max_length=4, default="")
-    symbol = models.CharField(max_length=6, default="")
-    date = models.CharField(max_length=10, default="")
-    rate = models.CharField(max_length=15, default="")
+class forex_quotes (models.Model): 
+    forex_id = models.IntegerField(default="")
+    date = models.IntegerField(default="")
+    rate = models.FloatField(default="")
 
     def __str__(self):
         return self.name
 
-    def _get_(self, sym):
-        self.symbol = sym
-        return self.rate
-        
+class forex (models.Model):
+    forex_id = models.IntegerField(primary_key="True", default="")
+    from_currency_id = models.IntegerField(default="")
+    to_currency_id = models.IntegerField(default="")
+
+    def __str__(self):
+        return self.name
+
+class currency (models.Model):
+    cr_short_name = models.TextField(default="")
+    cr_name = models.TextField(default="")

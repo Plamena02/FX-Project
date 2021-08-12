@@ -6,12 +6,22 @@ import pandas as pd
 import sqlite3
 
 def get_data():
-    currency = pd.read_csv("../output.csv")
+    usecols = ['forex_id','date','rate']
+    forex_quotes = pd.read_csv("../output.csv")
+    currency = pd.read_csv("../currencies.csv")
+
     conn = sqlite3.connect('db.sqlite3')
     c = conn.cursor()
+
+    final_list = list(set(usecols) & set(forex_quotes.columns))
+    forex_quotes = forex_quotes[final_list]
+    forex_quotes.to_sql('api_forex_quotes', conn, if_exists='append', index = False)
     currency.to_sql('api_currency', conn, if_exists='append', index = False)
+
+    c.execute("")
     conn.commit()
     conn.close()
+     
 
 
 def main():
