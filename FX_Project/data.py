@@ -1,11 +1,16 @@
 import pandas as pd
 import sqlite3
 
-
 conn = sqlite3.connect('db.sqlite3')
 c = conn.cursor()
 
-c.execute("DROP TABLE Currency")
+conn.commit()
+conn.close()
+
+
+# currency = pd.read_csv("../currencies.csv")
+# currency.to_sql('api_currency', conn, if_exists='append', index = False)
+# c.execute("DROP TABLE Currency")
 # currency.to_sql('ap_currency', conn, if_exists='append', index = False)
 # #Commit your changes in the database
 # conn.commit()

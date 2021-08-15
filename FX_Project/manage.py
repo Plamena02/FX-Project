@@ -8,17 +8,16 @@ import sqlite3
 def get_data():
     usecols = ['forex_id','date','rate']
     forex_quotes = pd.read_csv("../output.csv")
-    currency = pd.read_csv("../currencies.csv")
 
     conn = sqlite3.connect('db.sqlite3')
     c = conn.cursor()
+    # final_list = list(set(usecols) & set(forex_quotes.columns))
+    # forex_quotes = forex_quotes[final_list]
+    # forex_quotes.to_sql('api_forex_quotes', conn, if_exists='replace', index = False)
 
-    final_list = list(set(usecols) & set(forex_quotes.columns))
-    forex_quotes = forex_quotes[final_list]
-    forex_quotes.to_sql('api_forex_quotes', conn, if_exists='append', index = False)
-    currency.to_sql('api_currency', conn, if_exists='append', index = False)
-
-    c.execute("")
+    # c.execute("DROP TABLE api_currency")
+    # c.execute("""CREATE TABLE api_currency
+    #              (start, end, score)""")
     conn.commit()
     conn.close()
      
@@ -37,7 +36,17 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
+def end():
+
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
+    c.execute('DELETE FROM api_forex_quotes')
+    conn.commit()
+    conn.close()
+     
+
 
 if __name__ == '__main__':
     get_data()
     main()
+    end()
