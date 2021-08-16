@@ -15,9 +15,7 @@ def get_data():
     # forex_quotes = forex_quotes[final_list]
     # forex_quotes.to_sql('api_forex_quotes', conn, if_exists='replace', index = False)
 
-    # c.execute("DROP TABLE api_currency")
-    # c.execute("""CREATE TABLE api_currency
-    #              (start, end, score)""")
+    
     conn.commit()
     conn.close()
      

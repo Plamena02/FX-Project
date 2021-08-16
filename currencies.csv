@@ -1,135 +1,157 @@
 cr_name,cr_short_name
-US Dollar,USD
-Euro,EUR
-Pound Sterling,GBP
-Swiss Franc,CHF
-UAE Dirham,AED
 Afghani,AFN
-Lek,ALL
-Armenian Dram,AMD
-Netherlands Antillean Guilder,ANG
-Kwanza,AOA
+Algerian Dinar,DZD
 Argentine Peso,ARS
+Armenian Dram,AMD
 Aruban Florin,AWG
+Australian Dollar,AUD
 Azerbaijan Manat,AZN
-Convertible Mark,BAM
-Barbados Dollar,BBD
-Taka,BDT
-Bulgarian Lev,BGN
-Bahraini Dinar,BHD
-Burundi Franc,BIF
-Bermudian Dollar,BMD
-Brunei Dollar,BND
-Boliviano,BOB
-Mvdol,BOV
 Bahamian Dollar,BSD
-Ngultrum,BTN
-Pula,BWP
+Bahraini Dinar,BHD
+Baht,THB
+Balboa,PAB
+Barbados Dollar,BBD
 Belarusian Ruble,BYN
 Belize Dollar,BZD
-Congolese Franc,CDF
-WIR Euro,CHE
-WIR Franc,CHW
-Unidad de Fomento,CLF
+Bermudian Dollar,BMD
+Boliviano,BOB
+Bolívar Soberano,VES
+Brazilian Real,BRL
+Brunei Dollar,BND
+Bulgarian Lev,BGN
+Burundi Franc,BIF
+Cabo Verde Escudo,CVE
+Canadian Dollar,CAD
+Cayman Islands Dollar,KYD
+CFA Franc BCEAO,XOF
+CFA Franc BEAC,XAF
+Chilean Peso,CLP
+Chinese Yuan,CNH
 Colombian Peso,COP
-Unidad de Valor Real,COU
+Comorian Franc,KMF
+Congolese Franc,CDF
+Convertible Mark,BAM
+Cordoba Oro,NIO
 Costa Rican Colon,CRC
 Cuban Peso,CUP
-Cabo Verde Escudo,CVE
+Czech Koruna,CZK
+Dalasi,GMD
+Danish Krone,DKK
+Denar,MKD
 Djibouti Franc,DJF
+Dobra,STN
 Dominican Peso,DOP
-Algerian Dinar,DZD
-Kroon,EEK
+Dong,VND
+East Caribbean Dollar,XCD
 Egyptian Pound,EGP
-Nakfa,ERN
 Ethiopian Birr,ETB
-Fiji Dollar,FJD
+Euro,EUR
 Falkland Islands Pound,FKP
-Lari,GEL
+Fiji Dollar,FJD
+Forint,HUF
 Ghana Cedi,GHS
 Gibraltar Pound,GIP
-Dalasi,GMD
-Guinean Franc,GNF
-Quetzal,GTQ
-Guyana Dollar,GYD
-Lempira,HNL
-Kuna,HRK
 Gourde,HTG
-Iraqi Dinar,IQD
-Iranian Rial,IRR
+Guarani,PYG
+Guinean Franc,GNF
+Guyana Dollar,GYD
+Hong Kong Dollar,HKD
+Hryvnia,UAH
 Iceland Krona,ISK
+Indian Rupee,INR
+Iranian Rial,IRR
+Iraqi Dinar,IQD
 Jamaican Dollar,JMD
 Jordanian Dinar,JOD
 Kenyan Shilling,KES
-Som,KGS
-Riel,KHR
-Comorian Franc ,KMF
-North Korean Won,KPW
-Kuwaiti Dinar,KWD
-Cayman Islands Dollar,KYD
-Tenge,KZT
-Lao Kip,LAK
-Lebanese Pound,LBP
-Sri Lanka Rupee,LKR
-Liberian Dollar,LRD
-Loti,LSL
-Lithuanian Litas,LTL
-Latvian Lats,LVL
-Libyan Dinar,LYD
-Moroccan Dirham,MAD
-Moldovan Leu,MDL
-Malagasy Ariary,MGA
-Denar,MKD
-Kyat,MMK
-Tugrik,MNT
-Pataca,MOP
-Ouguiya,MRU
-Mauritius Rupee,MUR
-Rufiyaa,MVR
-Malawi Kwacha,MWK
-Mexican Unidad de Inversion (UDI),MXV
-Mozambique Metical,MZN
-Namibia Dollar,NAD
-Naira,NGN
-Cordoba Oro,NIO
-Nepalese Rupee,NPR
-Rial Omani,OMR
-Balboa,PAB
-Sol,PEN
 Kina,PGK
-Pakistan Rupee,PKR
-Guarani,PYG
-Qatari Rial,QAR
-Romanian Leu,RON
-Serbian Dinar,RSD
-Rwanda Franc,RWF
-Solomon Islands Dollar,SBD
-Seychelles Rupee,SCR
-Sudanese Pound,SDG
-Tolar,SIT
-Slovak Koruna,SKK
+Kuna,HRK
+Kuwaiti Dinar,KWD
+Kwanza,AOA
+Kyat,MMK
+Lao Kip,LAK
+Lari,GEL
+Lebanese Pound,LBP
+Lek,ALL
+Lempira,HNL
 Leone,SLL
-Somali Shilling,SOS
-Surinam Dollar,SRD
-Dobra,STN
-Syrian Pound,SYP
+Liberian Dollar,LRD
+Libyan Dinar,LYD
 Lilangeni,SZL
-Somoni,TJS
-Turkmenistan New Manat,TMT
-Tunisian Dinar,TND
+Loti,LSL
+Malagasy Ariary,MGA
+Malawi Kwacha,MWK
+Malaysian Ringgit,MYR
+Mauritius Rupee,MUR
+Mexican Peso,MXN
+Mexican Unidad de Inversion,MXV
+Moldovan Leu,MDL
+Moroccan Dirham,MAD
+Mozambique Metical,MZN
+Naira,NGN
+Nakfa,ERN
+Namibia Dollar,NAD
+Nepalese Rupee,NPR
+Netherlands Antillean Guilder,ANG
+New Israeli Sheqel,ILS
+New Taiwan Dollar,TWD
+New Zealand Dollar,NZD
+Ngultrum,BTN
+North Korean Won,KPW
+Norwegian Krone,NOK
+Ouguiya,MRU
 Pa'anga,TOP
-Trinidad and Tobago Dollar,TTD
-Hryvnia,UAH
-Uganda Shilling,UGX
+Pakistan Rupee,PKR
+Pataca,MOP
 Peso Uruguayo,UYU
-Uzbekistan Sum,UZS
-Bolívar Soberano,VES
-Dong,VND
-Vatu,VUV
+Philippine Peso,PHP
+Pound Sterling,GBP
+Pula,BWP
+Qatari Rial,QAR
+Quetzal,GTQ
+Rial Omani,OMR
+Riel,KHR
+Romanian Leu,RON
+Rufiyaa,MVR
+Rupiah,IDR
+Russian Ruble,RUB
+Rwanda Franc,RWF
+Saudi Riyal,SAR
+Serbian Dinar,RSD
+Seychelles Rupee,SCR
+Singapore Dollar,SGD
+Sol,PEN
+Solomon Islands Dollar,SBD
+Som,KGS
+Somali Shilling,SOS
+Somoni,TJS
+South African Rand,ZAR
+South African Rand,ZAC
+Sri Lanka Rupee,LKR
+Sudanese Pound,SDG
+Surinam Dollar,SRD
+Swedish Krona,SEK
+Swiss Franc,CHF
+Syrian Pound,SYP
+Taka,BDT
 Tala,WST
-CFA Franc BEAC,XAF
-East Caribbean Dollar,XCD
-CFA Franc BCEAO,XOF
+Tanzanian Shilling,TZS
+Tenge,KZT
+Trinidad and Tobago Dollar,TTD
+Tugrik,MNT
+Tunisian Dinar,TND
+Turkish Lira,TRY
+Turkmenistan New Manat,TMT
+UAE Dirham,AED
+Uganda Shilling,UGX
+Unidad de Fomento,CLF
+US Dollar,USD
+Uzbekistan Sum,UZS
+Vatu,VUV
+Won,KRW
 Yemeni Rial,YER
+Yen,JPY
+Yuan Renminbi,CNY
 Zambian Kwacha,ZMW
-Zimbabwe Dollar,ZWD
+Zloty,PLN
+Saint Helena Pound,SHP
