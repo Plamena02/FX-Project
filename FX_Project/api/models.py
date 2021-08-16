@@ -16,12 +16,8 @@ class Forex (models.Model):
         return self.name
 
 class Forex_quotes (models.Model): 
-    forex_id = models.OneToOneField(Forex, on_delete=models.DO_NOTHING)
-    date = models.IntegerField(primary_key="True")
+    id = models.AutoField(primary_key="True")
+    forex_id = models.IntegerField(default="") 
+    date = models.IntegerField(default="")
     rate = models.FloatField(default="")
-    class Meta:
-        unique_together = (("forex_id", "date"))
-
-    def __str__(self):
-        return self.name
 
