@@ -1,3 +1,5 @@
 /forex_pairs.csv
 /output.csv
 /report.csv
+/venv
+__pycache__/
