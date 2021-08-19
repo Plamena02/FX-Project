@@ -62,7 +62,7 @@ def home (request):
    for key in variables:
       variables[key].insert(i, '')
       i += 1
-      
+
    conn.commit()
    conn.close()
    
