@@ -16,6 +16,7 @@
           <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/index.css'%}">
 </head>
 <body>   
+  
           <div class="contain">
                     <h1 class="block"> Popular Cross Rates </h1> 
                     <span id="datetime" class="block"></span>
@@ -45,78 +46,51 @@
                               </thead>
                               <tbody>
                                 <tr>
-                                  <td scope="row" ><a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" > <span class="flag-icon flag-icon-us"></span> USD </a> </td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  <td scope="row" ><a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" > <span class="flag-icon flag-icon-us"></span> USD </a> </td>                                 
+                                  {% for value in USD %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                 <tr>
-                                  <td scope="row"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>  
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  <td scope="row"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>               
+                                  {% for value in AUD %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                 <tr>
                                   <td scope="row"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  {% for value in CHF %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                <tr>
                                   <td scope="row"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  {% for value in CAD %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                 <tr>
                                   <td scope="row"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  {% for value in EUR %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                 <tr>
                                   <td scope="row"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  {% for value in GBP %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                                 <tr>
                                   <td scope="row"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
-                                  <td></td>
+                                  {% for value in JPY %}
+                                  <td>{{value}}</td>
+                                  {%endfor%}
                                 </tr>
                               </tbody>
                             </table>
-                    </div>      
+                    </div>     
+                    
 </body>
 </html>
 <!-- font-family: Noto Sans,sans-serif; -->

@@ -1,19 +1,23 @@
 import pandas as pd
 import sqlite3, csv
+from api.models import Forex_quotes
 
-conn = sqlite3.connect('db.sqlite3')
+
+conn = sqlite3.connect('db-forex.sqlite3')
 c = conn.cursor()
 
+tables = pd.read_html('index.html')
+print('Tables found:', len(tables))
+df1 = tables[0]  
+
+print('First Table')
+print(df1)
 
 
 conn.commit()
 conn.close()
 
-
-
-
-
-
+# 2, 1034, 62, 61, 75
 # c.execute("DROP TABLE api_forex_quotes")
 # c.execute("""CREATE TABLE api_forex_quotes
 #              (start, end, score)""")
