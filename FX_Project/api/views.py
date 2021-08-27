@@ -61,7 +61,6 @@ def home (request):
       variables[key].insert(i, '')
       i += 1
 
-   conn.commit()
    conn.close()
    
    return render(request, 'api/index.html', variables) 
@@ -71,15 +70,16 @@ def chart (request):
    conn = sqlite3.connect('db.sqlite3')
    c = conn.cursor()
 
-   variables = {"dict":[]}
+   variables = {
+      "dict":[]
+      }
 
    c.execute('SELECT * FROM api_currency')
    query = c.fetchall()
    for item in query:
-      variables["dict"].append(f'{item[0]} {item[1]} ({item[2]}) {item[3]}')
-   # print(query)
+      variables["dict"].append([item[0], f'{item[2]} ({item[1]})', item[3]])
+   # print(variables["dict"][0][1])
 
-   # conn.commit()
    conn.close()
 
    return render(request,'api/chart_page.html',variables)

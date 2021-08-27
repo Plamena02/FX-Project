@@ -1,4 +1,22 @@
 {% extends "api/base.html" %}
+
+{% block content %}
+<h3>From:</h3>
+<select name="currencies" id="icon" class = "selectpicker">
+        {% for value in dict %}       
+        <option data-content="<i class='flag-icon flag-icon-{{value.2}}'></i> {{value.1}}"></option>
+        {% endfor %}
+</select>
+<h3>To:</h3>
+<select name="currencies" id="icon" class = "selectpicker">
+    {% for value in dict %}       
+    <option data-content="<i class='flag-icon flag-icon-{{value.2}}'></i> {{value.1}}"></option>
+    {% endfor %}
+</select>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+{% endblock %}
+
 {% block scripts %}
 <script>
     $(document).ready(function() {
@@ -39,22 +57,4 @@
     });
 });
 </script>
-{% endblock %}
-
-{% block content %}
-<h3>From:</h3>
-<select name="currencies" id="currencies">
-        {% for value in dict %}
-        <option>{{value}}</option>
-        {%endfor%}
-</select>
-<h3>To:</h3>
-<select name="curriencies" id="currencies">
-        {% for value in dict %}
-        <option>{{value}}</option>
-        {%endfor%}
-</select>
-
-
-<canvas id="myChart" width="400" height="400"></canvas>
 {% endblock %}

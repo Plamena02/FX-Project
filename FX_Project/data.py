@@ -8,9 +8,7 @@ c = conn.cursor()
 
 c.execute(f'SELECT cr_short_name FROM api_currency')
 cur = c.fetchall()
-for id in range(156):
-          name = cur[id][0][:-1].lower()
-          c.execute("UPDATE api_currency SET cr_country = ? WHERE id = ?", (name, id + 1))
+c.execute("UPDATE api_currency SET cr_country = ? WHERE id = ?", ("ax", 44))
 
 conn.commit()
 conn.close()
