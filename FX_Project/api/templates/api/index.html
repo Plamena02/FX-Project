@@ -1,96 +1,81 @@
-{% load static %}
+{% extends "api/base.html "%}
 
-<!DOCTYPE html>
-<html>
-<head>
-          <meta charset="utf-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <title></title>
-          <meta name="FX Project" content="Full Stack Web App">
-          <meta name="viewport" content="width=device-width, initial-scale=1">
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/docs.css'%}">
-          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/flag-icon.css'%}">
-          <link rel="stylesheet" type="text/css" base href="{% static '../../static/css/index.css'%}">
-</head>
-<body>   
+{% block content %}
+<div class="contain">
+  <h1 class="block"> Popular Cross Rates </h1> 
+  <span id="datetime" class="block"></span>
   
-          <div class="contain">
-                    <h1 class="block"> Popular Cross Rates </h1> 
-                    <span id="datetime" class="block"></span>
+  <script>
+    var dt = new Date();
+    var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    document.getElementById("datetime").innerHTML=dt.toLocaleString("en-US", options);
+    </script>    
+</div>
 
-                    <script>
-                      var dt = new Date();
-                      var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-                      document.getElementById("datetime").innerHTML=dt.toLocaleString("en-US", options);
-                    </script>    
-          </div>
-          
-          <div>
-                    <table class="table table-striped table-bordered"> 
-                              <thead>
-                                <tr>
-                                  <th colspan="8" ><h4>Major Crossrates</h4></th>
-                                </tr>
-                                <tr> 
-                                  <td></td>  
-                                  <td class="left_text"> <a target="_self" title="U.S. Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-us"></span> USD </a> </td> 
-                                  <td class="left_text"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>  
-                                  <td class="left_text"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
-                                  <td class="left_text"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
-                                  <td class="left_text"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
-                                  <td class="left_text"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
-                                  <td class="left_text"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>  </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td scope="row" ><a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" > <span class="flag-icon flag-icon-us"></span> USD </a> </td>                                 
-                                  {% for value in USD %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                                <tr>
-                                  <td scope="row"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>               
-                                  {% for value in AUD %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                                <tr>
-                                  <td scope="row"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
-                                  {% for value in CHF %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                               <tr>
-                                  <td scope="row"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
-                                  {% for value in CAD %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                                <tr>
-                                  <td scope="row"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
-                                  {% for value in EUR %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                                <tr>
-                                  <td scope="row"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
-                                  {% for value in GBP %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                                <tr>
-                                  <td scope="row"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>
-                                  {% for value in JPY %}
-                                  <td class="left_text">{{value}}</td>
-                                  {%endfor%}
-                                </tr>
-                              </tbody>
-                            </table>
-                    </div>     
-                    
-</body>
-</html>
-<!-- font-family: Noto Sans,sans-serif; -->
+<div>
+  <table class="table table-striped table-bordered"> 
+    <thead>
+      <tr>
+        <th colspan="8" ><h4>Major Crossrates</h4></th>
+      </tr>
+      <tr> 
+        <td></td>  
+        <td class="left_text"> <a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" class="item"> <span class="flag-icon flag-icon-us"></span> USD </a> </td> 
+        <td class="left_text"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>  
+        <td class="left_text"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
+        <td class="left_text"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
+        <td class="left_text"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
+        <td class="left_text"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
+        <td class="left_text"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>  </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td scope="row" ><a target="_self" title="U.S. Dollar" href="{% url 'chart' %}" class="lim"> <span class="flag-icon flag-icon-us" ></span> USD </a> </td>                                 
+          {% for value in USD %}
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="Australian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-au"></span> AUD </a> </td>               
+          {% for value in AUD %}   
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="Swiss Franc" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ch"></span> CHF </a> </td>  
+          {% for value in CHF %}
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="Canadian Dollar" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-ca"></span> CAD </a> </td>  
+          {% for value in CAD %}
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="Euro FX" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-eu"></span> EUR </a> </td>  
+          {% for value in EUR %}
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="British Pound" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-gb"></span> GBP </a> </td>  
+          {% for value in GBP %}
+          <td class="left_text"><a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+        <tr>
+          <td scope="row"> <a target="_self" title="Japanese Yen" href="{% url 'chart' %}"> <span class="flag-icon flag-icon-jp"></span> JPY </a> </td>
+          {% for value in JPY %}
+          <td class="left_text"> <a target="_self" href="{% url 'chart' %}">{{value}}</a></td>
+          {%endfor%}
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+  <div>
+    <a href="{% url 'chart' %}">More currencies...</a>   
+  </div>
+  {% endblock content %}
+  <!-- font-family: Noto Sans,sans-serif; -->

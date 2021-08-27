@@ -6,6 +6,7 @@ class Currency (models.Model):
     id = models.AutoField(primary_key="True")
     cr_short_name = models.TextField(default="")
     cr_name = models.TextField(default="")
+    cr_country = models.TextField(default="")
 
 class Forex (models.Model):
     forex_id = models.IntegerField(primary_key="True")

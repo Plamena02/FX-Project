@@ -1,10 +1,10 @@
 from .models import Forex_quotes
 from flask import render_template
 from django.shortcuts import render
+from django.views.generic import TemplateView
 from django.http import HttpResponse
 import sqlite3
-import pandas as pd 
-
+import pandas as pd
 
 # Create your views here.
 def home (request): 
@@ -13,7 +13,6 @@ def home (request):
    c = conn.cursor()
 
    variables = {
-
       "USD": [],
       "AUD": [],
       "CHF": [],
@@ -21,7 +20,6 @@ def home (request):
       "EUR": [],
       "GBP": [],
       "JPY": []
-
    }
 
    queries = {
@@ -69,4 +67,19 @@ def home (request):
    return render(request, 'api/index.html', variables) 
 
 def chart (request):
-   return render(request,'api/chart_page.html') 
+
+   conn = sqlite3.connect('db.sqlite3')
+   c = conn.cursor()
+
+   variables = {"dict":[]}
+
+   c.execute('SELECT * FROM api_currency')
+   query = c.fetchall()
+   for item in query:
+      variables["dict"].append(f'{item[0]} {item[1]} ({item[2]}) {item[3]}')
+   # print(query)
+
+   # conn.commit()
+   conn.close()
+
+   return render(request,'api/chart_page.html',variables)

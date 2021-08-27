@@ -6,18 +6,19 @@ import pandas as pd
 import sqlite3
 
 def get_data():
-     usecols = ['forex_id','date','rate']
-    # forex_quotes = pd.read_csv("../output.csv")
+    usecols = ['forex_id','date','rate']
+    forex_quotes = pd.read_csv("../output.csv")
 
-    # conn = sqlite3.connect('db.sqlite3')
-    # c = conn.cursor()
+    conn = sqlite3.connect('db.sqlite3')
+    c = conn.cursor()
 
-    # final_list = list(set(usecols) & set(forex_quotes.columns))
-    # forex_quotes = forex_quotes[final_list]
+    final_list = list(set(usecols) & set(forex_quotes.columns))
+    forex_quotes = forex_quotes[final_list]
+    # print(type(forex_quotes))
     # forex_quotes.to_sql('api_forex_quotes', conn, if_exists='append', index = False)
     
-    # conn.commit()
-    # conn.close()
+    conn.commit()
+    conn.close()
      
 
 
@@ -34,17 +35,7 @@ def main():
         ) from exc
     execute_from_command_line(sys.argv)
 
-def end():
-
-     conn = sqlite3.connect('db.sqlite3')
-    # c = conn.cursor()
-    # c.execute('DELETE FROM api_forex_quotes')
-    # conn.commit()
-    # conn.close()
-     
-
 
 if __name__ == '__main__':
-    
+    # get_data()
     main()
-    end()

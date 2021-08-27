@@ -1,3 +1,13 @@
 .left_text {
     text-align: right;
 }
+
+.mar{
+    margin-left: 3px;
+    padding-left: 10px;
+}
+
+a, a:link, a:visited {
+    text-decoration: none;
+    color: black !important;
+}
