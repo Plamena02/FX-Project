@@ -14,7 +14,6 @@ def get_data():
 
     final_list = list(set(usecols) & set(forex_quotes.columns))
     forex_quotes = forex_quotes[final_list]
-    # print(type(forex_quotes))
     # forex_quotes.to_sql('api_forex_quotes', conn, if_exists='append', index = False)
     
     conn.commit()

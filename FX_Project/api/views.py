@@ -1,10 +1,7 @@
-from .models import Forex_quotes
-from flask import render_template
 from django.shortcuts import render
-from django.views.generic import TemplateView
-from django.http import HttpResponse
 import sqlite3
-import pandas as pd
+from .chart import MyBarGraph
+from django.views.decorators.csrf import csrf_protect
 
 # Create your views here.
 def home (request): 
@@ -65,20 +62,65 @@ def home (request):
    
    return render(request, 'api/index.html', variables) 
 
+@csrf_protect
 def chart (request):
-
+   
    conn = sqlite3.connect('db.sqlite3')
    c = conn.cursor()
 
+   
    variables = {
-      "dict":[]
-      }
+      "chartJSON": None,
+      "dict":[],
+      "one":1,
+      "two":2
+   }
+
+   id1 = 0
+   id2 = 0
+   forex = 0
+   flag = True
+
+   if request.method == 'POST':
+      id1 = int(request.POST.get('one'))
+      id2 = int(request.POST.get('two'))
+      variables["one"] = id1
+      variables["two"] = id2
+
+   c.execute('SELECT * FROM api_forex')
+   query = c.fetchall()
+   # If there is no pair convert
+   for item in query:
+      if(item[0] == id1 and item[1] == id2):
+         forex = item[2] 
+         break
+      if(item[0] == id2 and item[1] == id1):
+         forex = item[2] 
+         flag = False
+         break
+
+   labels = []
+   data = []
+   c.execute('SELECT * FROM api_forex_quotes')
+   query = c.fetchall()
+   for item in query:
+      if(forex == item[0] and flag):
+         labels.append(item[1])
+         data.append(item[3])
+      if(forex == item[0] and not flag):
+         labels.append(item[1])
+         data.append(1/item[3])       
+
+   NewChart = MyBarGraph()
+   NewChart.labels.labels = labels
+   NewChart.data.data = data
+   ChartJSON = NewChart.get()
+   variables["chartJSON"] = ChartJSON
 
    c.execute('SELECT * FROM api_currency')
    query = c.fetchall()
    for item in query:
       variables["dict"].append([item[0], f'{item[2]} ({item[1]})', item[3]])
-   # print(variables["dict"][0][1])
 
    conn.close()
 

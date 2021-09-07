@@ -20,5 +20,5 @@ class Forex_quotes (models.Model):
     id = models.AutoField(primary_key="True")
     forex_id = models.IntegerField(default="") 
     date = models.DateField(default="")
-    rate = models.FloatField(default="")
+    rate = models.FloatField(default="", null=True)
 

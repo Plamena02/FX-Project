@@ -1,25 +1,28 @@
 from os import name
 import pandas as pd
 import sqlite3, csv
+import js2py
 
+# help("modules")
 
+usecols = ['forex_id','date','rate']
+forex_quotes = pd.read_csv("../output.csv")
 conn = sqlite3.connect('db.sqlite3')
 c = conn.cursor()
 
-c.execute(f'SELECT cr_short_name FROM api_currency')
-cur = c.fetchall()
-c.execute("UPDATE api_currency SET cr_country = ? WHERE id = ?", ("ax", 44))
+final_list = list(set(usecols) & set(forex_quotes.columns))
+forex_quotes = forex_quotes[final_list]
+forex_quotes.to_sql('api_forex_quotes', conn, if_exists='append', index = False)
 
 conn.commit()
 conn.close()
 
-
-
-
-
 # c.execute("DROP TABLE api_forex_quotes")
 # c.execute("""CREATE TABLE api_forex_quotes
 #              (start, end, score)""")
+# c.execute(f'SELECT cr_short_name FROM api_currency')
+# cur = c.fetchall()
+# c.execute("UPDATE api_currency SET cr_country = ? WHERE id = ?", ("ax", 44))
 
 # currency = pd.read_csv("../currencies.csv")
 # currency.to_sql('api_currency', conn, if_exists='append', index = False)

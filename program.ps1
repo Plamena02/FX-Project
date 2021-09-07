@@ -36,7 +36,7 @@ function OutputCheck {
 function DownloadData{
 
 #Start and End date (5 days)
-[datetime]$date = (Get-Date).AddDays(-5)
+[datetime]$date = (Get-Date).AddYears(-1)
 $period1 = [int](Get-Date -Date $date -UFormat %s -Millisecond 0)
 $period2 = [int](Get-Date -UFormat %s -Millisecond 0)
 
